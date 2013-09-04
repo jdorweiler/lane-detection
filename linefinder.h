@@ -49,6 +49,9 @@ class LineFinder {
 	  // max allowed gap along the line
 	  double maxGap;
 
+	  // distance to shift the drawn lines down when using a ROI
+	  int shift;
+
   public:
 
 	  // Default accumulator resolution is 1 pixel by 1 degree
@@ -75,6 +78,12 @@ class LineFinder {
 		  maxGap= gap;
 	  }
 
+	  // set image shift
+	  void setShift(int imgShift) {
+
+		  shift = imgShift;
+	  }
+
 	  // Apply probabilistic Hough Transform
 	  std::vector<cv::Vec4i> findLines(cv::Mat& binary) {
 
@@ -86,17 +95,17 @@ class LineFinder {
 
 	  // Draw the detected lines on an image
 	  void drawDetectedLines(cv::Mat &image, cv::Scalar color=cv::Scalar(255)) {
-	
+		
 		  // Draw the lines
 		  std::vector<cv::Vec4i>::const_iterator it2= lines.begin();
 	
 		  while (it2!=lines.end()) {
 		
-			  cv::Point pt1((*it2)[0],(*it2)[1]);        
-			  cv::Point pt2((*it2)[2],(*it2)[3]);
+			  cv::Point pt1((*it2)[0],(*it2)[1]+shift);        
+			  cv::Point pt2((*it2)[2],(*it2)[3]+shift);
 
 			  cv::line( image, pt1, pt2, color, 6 );
-		
+		std::cout << " HoughP line: ("<< pt1 <<"," << pt2 << ")\n"; 
 			  ++it2;	
 		  }
 	  }
