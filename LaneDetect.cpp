@@ -132,7 +132,7 @@ int main(int argc, char* argv[]) {
 		float rho= (*it)[0];   // first element is distance rho
 		float theta= (*it)[1]; // second element is angle theta
 		
-		if ( theta > 0.10 && theta < 1.50 || theta < 5.28 && theta > 3.2 ) { // filter to remove vertical and horizontal lines
+		if ( theta > 0.09 && theta < 1.48 || theta < 3.14 && theta > 1.66 ) { // filter to remove vertical and horizontal lines
 		
 			// point of intersection of the line with first row
 			Point pt1(rho/cos(theta),0);        
